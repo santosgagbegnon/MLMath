@@ -44,6 +44,9 @@ class CalculatorViewController: UIViewController {
                         self.calculatorModel.clearExpression()
                     }
                     self.calculatorModel.addToExpression(newAddittion: handWrittenNum)
+                    if (self.shouldGetOperator){
+                        self.calculatorModel.addToExpression(newAddittion: self.lastOperator)
+                    }
                     if let results = self.calculatorModel.calculateExpression() {
                         self.calculationLabel.text = results
                         self.isShowingCalculation = true
@@ -56,6 +59,7 @@ class CalculatorViewController: UIViewController {
                 else{
                     if (self.shouldGetOperator){
                         self.calculatorModel.addToExpression(newAddittion: self.lastOperator)
+
                     }
                 }
                 self.handWrittenCanvasView.eraseCanvas()

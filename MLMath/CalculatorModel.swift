@@ -12,6 +12,7 @@ class CalculatorModel {
     private static var NUMBERS = "0123456789"
     private static var OPERATORS = "+-/x"
     public func addToExpression(newAddittion : String){
+        print(newAddittion)
         if (expression.count == 0 && newAddittion == "0") {return}
         if (expression.peak() != nil && Int(expression.peak()!) != nil &&
             CalculatorModel.NUMBERS.contains(newAddittion)) {
