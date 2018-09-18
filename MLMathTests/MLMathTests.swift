@@ -44,16 +44,23 @@ class MLMathTests: XCTestCase {
     
     func testCalculatorModel() {
         let model = CalculatorModel()
-        model.addToExpression(newAddittion: 1)
-        model.addToExpression(newAddittion: 0)
-        model.addToExpression(newAddittion: 0)
+        model.addToExpression(newAddittion: "1")
+        model.addToExpression(newAddittion: "0")
+        model.addToExpression(newAddittion: "0")
         XCTAssertEqual(model.getExpression(), "100")
+        XCTAssertEqual(model.expression.peak(), "100")
+        
+
         model.undoAdditionToExpression()
         XCTAssertEqual(model.getExpression(), "10")
+        XCTAssertEqual(model.expression.peak(), "10")
+
         model.undoAdditionToExpression()
         XCTAssertEqual(model.getExpression(), "1")
+        XCTAssertEqual(model.expression.peak(), "1")
+
         model.undoAdditionToExpression()
-        XCTAssertEqual(model.getExpression(), "")
+        XCTAssertEqual(model.getExpression(), "0")
      
 
 

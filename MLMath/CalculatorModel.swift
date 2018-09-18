@@ -8,22 +8,38 @@
 
 import Foundation
 class CalculatorModel {
-    private var expression = Stack<String>()
-    private static var WOLFRAM_API_KEY = "6RG66G-W2VP4RJY83"
+    private (set) var expression = Stack<String>()
+    private static var NUMBERS = "0123456789"
+    private static var OPERATORS = "+-/x"
     public func addToExpression(newAddittion : String){
-        expression.push(item: newAddittion)
+        if (expression.count == 0 && newAddittion == "0") {return}
+        if (expression.peak() != nil && Int(expression.peak()!) != nil &&
+            CalculatorModel.NUMBERS.contains(newAddittion)) {
+            //Combine number if there is no operator inbetween eg. Combine 5 & 5 -> 55
+            let baseNum = expression.pop()
+            expression.push(item: baseNum!+newAddittion)
+        }
+        else if !((expression.peak() != nil && CalculatorModel.OPERATORS.contains(newAddittion) &&
+            CalculatorModel.OPERATORS.contains(expression.peak()!))) {
+            //Ensures operators are not stacked back to bag eg. 5 + + 6
+            expression.push(item: newAddittion)
+        }
     }
     public func undoAdditionToExpression() {
-        _ = expression.pop()
+        let removedString = expression.pop()
+        guard let stringCount = removedString?.count else {return}
+        if (stringCount >= 2){
+            expression.push(item: String(removedString?.dropLast() ?? ""))
+        }
     }
+    
     public func getExpression() -> String {
         var stringExpression = ""
         var poppedFirstItem = true
         let reverseStack = expression.getStackInReverse()
-    
         while (!reverseStack.isEmpty()){
             let poppedValue = reverseStack.pop()!
-            if (!(poppedFirstItem && poppedValue == "0")) { //Ensures 0 is not appended to the first part of the expression eg. 0100
+            if (!(poppedFirstItem && poppedValue == "0")) {
                 stringExpression += String(poppedValue)
             }
             poppedFirstItem = false
@@ -31,54 +47,41 @@ class CalculatorModel {
         if (stringExpression == "") {stringExpression = "0"}
         return stringExpression
     }
-    public func calculateExpression(closure : @escaping (String?) -> Void ) {
-        var currentExpression = getExpression()
-        expression = Stack<String>()
-        let rerservedCharacters = (CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted)
-        currentExpression = currentExpression.addingPercentEncoding(withAllowedCharacters: rerservedCharacters) ?? currentExpression
-        let baseURL = "http://api.wolframalpha.com/v2/query?output=JSON&format=plaintext,minput&input="+currentExpression+"&includepodid=Limit&includepodid=Result&includepodid=Root&includepodid=Solution&includepodid=Solutions&"+"appid="+CalculatorModel.WOLFRAM_API_KEY
-        print(baseURL)
-        let requestURL = URL(string: baseURL)!
-        var x = URLRequest(url: requestURL)
-        x.httpMethod = "GET"
-        URLSession.shared.dataTask(with: x) { (data, response, error) in
-            print("api call")
-            if error != nil {
-                print("Error occurred when using wolframpha: " + error!.localizedDescription)
-            }
-            let httpURLResponse = response as? HTTPURLResponse
-            let statusCode = httpURLResponse?.statusCode ?? 0
-            if (statusCode == 200){ //Everything worked
-                do{
-                    guard let data = data else {return}
-                    let wolframAlphaJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
-                    if let pods = wolframAlphaJSON?["queryresult"]?["pods"] as? [[String:Any]] {
-                        if let subpods = pods[0]["subpods"] as? [[String:Any]] {
-                            let plainText = subpods[0]["plaintext"] as? String
-                            if (plainText != nil && plainText?.contains("?") == false) {
-                                closure(plainText)
-                            }else{
-                                let minput = subpods[0]["minput"] as? String
-                                closure(minput)
-                            }
-                        }
-                        else {
-                            closure(nil)
-                        }
-                    }
-                    else{
-                        closure(nil)
-                    }
-                }
-                catch let JSONError{
-                    
-                    print(JSONError.localizedDescription)
-                }
+    public func calculateExpression() -> String?{
+        guard let rightStringOperand = expression.pop() else {return nil}
+        guard let operation = expression.pop() else {expression.push(item:String(rightStringOperand));return nil}
+        guard let leftStringOperand = expression.pop() else {expression.push(item:operation);expression.push(item:String(rightStringOperand));return nil}
+        guard let rightOperand = Int(rightStringOperand) else {return nil}
+        guard let leftOperand = Int(leftStringOperand) else {return nil}
+        var answer = 0
+        var operatorString = ""
+        switch operation {
+            case "+":
+                answer = leftOperand + rightOperand
+                operatorString = "+"
+                expression.push(item: String(answer))
+            case "-":
+                answer = leftOperand - rightOperand
+                operatorString = "-"
+                expression.push(item: String(answer))
+            case "/":
+                answer = leftOperand / rightOperand
+                operatorString = "/"
+
+                expression.push(item: String(answer))
+            case "x":
+                answer = leftOperand * rightOperand
+                expression.push(item: String(answer))
+                operatorString = "x"
+            default:
+                return nil
         }
-            else {
-                print("Error status code not 200, instead it's " + String(statusCode) )
-            }
-        }.resume()
+        
+        return leftStringOperand + operatorString + rightStringOperand + "=" + String(answer)
+
     }
-    
+    public func clearExpression() {
+        self.expression = Stack<String>()
+        
+    }
 }

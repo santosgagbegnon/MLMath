@@ -8,7 +8,7 @@
 
 import UIKit
 class CanvasView : UIView {
-    private final var LINE_WIDTH = 8
+    private final var LINE_WIDTH = 15
     private final var LINE_COLOUR = UIColor.white.cgColor
     var path : UIBezierPath!
     var touchPoint : CGPoint!
@@ -48,5 +48,13 @@ class CanvasView : UIView {
         self.layer.sublayers = nil
         self.setNeedsDisplay()
     }
-
+}
+extension UIImage {
+    convenience init(view :UIView){
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 1)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let imageSnapshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.init(cgImage: imageSnapshot!.cgImage!)
+    }
 }

@@ -18,17 +18,21 @@ class Stack<E> {
     }
     
     private var head : Node<E>?
+    private (set) var count = 0
     init() {
         self.head = nil
     }
     public func push(item : E){
+        
         let newNode = Node<E>(next: head, value: item)
         head = newNode
+        count += 1
     }
     public func pop() -> E?{
         if head == nil {return nil}
         let nodeToRemove = head
         head = head?.next
+        count -= 1
         return nodeToRemove?.value
         
     }

@@ -17,10 +17,8 @@
 		6B5EFE55214CCA0100517DBE /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5EFE54214CCA0100517DBE /* CanvasView.swift */; };
 		6B5EFE5B214CDA6800517DBE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5EFE5A214CDA6800517DBE /* Stack.swift */; };
 		6B5EFE5D214CE11C00517DBE /* CalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5EFE5C214CE11C00517DBE /* CalculatorModel.swift */; };
-		6BF937AE214DE82500F002DD /* MNIST.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6BF937AD214DE82500F002DD /* MNIST.mlmodel */; };
-		6BF937AF214DE82500F002DD /* MNIST.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6BF937AD214DE82500F002DD /* MNIST.mlmodel */; };
-		6BF937B1214E07DD00F002DD /* WolframAlphaStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF937B0214E07DD00F002DD /* WolframAlphaStructs.swift */; };
-		6BF937B2214E07DD00F002DD /* WolframAlphaStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF937B0214E07DD00F002DD /* WolframAlphaStructs.swift */; };
+		6BEAA9562150C8DF0070B9E6 /* mnistCNN.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6BEAA9552150C8DF0070B9E6 /* mnistCNN.mlmodel */; };
+		6BEAA9582150CF2F0070B9E6 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEAA9572150CF2F0070B9E6 /* UICustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +46,8 @@
 		6B5EFE54214CCA0100517DBE /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		6B5EFE5A214CDA6800517DBE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		6B5EFE5C214CE11C00517DBE /* CalculatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModel.swift; sourceTree = "<group>"; };
-		6BF937AD214DE82500F002DD /* MNIST.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNIST.mlmodel; sourceTree = "<group>"; };
-		6BF937B0214E07DD00F002DD /* WolframAlphaStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlphaStructs.swift; sourceTree = "<group>"; };
+		6BEAA9552150C8DF0070B9E6 /* mnistCNN.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mnistCNN.mlmodel; sourceTree = "<group>"; };
+		6BEAA9572150CF2F0070B9E6 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +71,6 @@
 		6B5EFE25214CB07700517DBE = {
 			isa = PBXGroup;
 			children = (
-				6BF937B0214E07DD00F002DD /* WolframAlphaStructs.swift */,
 				6B5EFE30214CB07700517DBE /* MLMath */,
 				6B5EFE48214CB07900517DBE /* MLMathTests */,
 				6B5EFE2F214CB07700517DBE /* Products */,
@@ -92,11 +89,12 @@
 		6B5EFE30214CB07700517DBE /* MLMath */ = {
 			isa = PBXGroup;
 			children = (
+				6BEAA9572150CF2F0070B9E6 /* UICustomButton.swift */,
 				6B5EFE40214CB07900517DBE /* Info.plist */,
 				6B5EFE31214CB07700517DBE /* AppDelegate.swift */,
 				6B5EFE5C214CE11C00517DBE /* CalculatorModel.swift */,
 				6B5EFE33214CB07700517DBE /* CalculatorViewController.swift */,
-				6BF937AD214DE82500F002DD /* MNIST.mlmodel */,
+				6BEAA9552150C8DF0070B9E6 /* mnistCNN.mlmodel */,
 				6B5EFE54214CCA0100517DBE /* CanvasView.swift */,
 				6B5EFE5A214CDA6800517DBE /* Stack.swift */,
 				6B5EFE3B214CB07900517DBE /* Assets.xcassets */,
@@ -219,11 +217,11 @@
 			files = (
 				6B5EFE34214CB07700517DBE /* CalculatorViewController.swift in Sources */,
 				6B5EFE5B214CDA6800517DBE /* Stack.swift in Sources */,
-				6BF937B1214E07DD00F002DD /* WolframAlphaStructs.swift in Sources */,
+				6BEAA9562150C8DF0070B9E6 /* mnistCNN.mlmodel in Sources */,
 				6B5EFE3A214CB07700517DBE /* MLMath.xcdatamodeld in Sources */,
+				6BEAA9582150CF2F0070B9E6 /* UICustomButton.swift in Sources */,
 				6B5EFE5D214CE11C00517DBE /* CalculatorModel.swift in Sources */,
 				6B5EFE55214CCA0100517DBE /* CanvasView.swift in Sources */,
-				6BF937AE214DE82500F002DD /* MNIST.mlmodel in Sources */,
 				6B5EFE32214CB07700517DBE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,8 +230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BF937AF214DE82500F002DD /* MNIST.mlmodel in Sources */,
-				6BF937B2214E07DD00F002DD /* WolframAlphaStructs.swift in Sources */,
 				6B5EFE4A214CB07900517DBE /* MLMathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
